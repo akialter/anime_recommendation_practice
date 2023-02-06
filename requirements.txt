@@ -1,5 +1,4 @@
 pandas
-pickle
 gcsfs
 scikit-learn
 google-cloud-storage
