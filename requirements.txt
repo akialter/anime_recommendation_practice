@@ -1,0 +1,9 @@
+pandas
+pickle
+gcsfs
+streamlit
+virtualenv
+google-cloud-storage
+numpy
+re
+fuzzywuzzy
