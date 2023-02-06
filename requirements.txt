@@ -1,8 +1,7 @@
 pandas
 pickle
 gcsfs
-virtualenv
+scikit-learn
 google-cloud-storage
 numpy
-re
 fuzzywuzzy
