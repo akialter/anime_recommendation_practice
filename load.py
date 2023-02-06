@@ -18,14 +18,24 @@ credentials = service_account.Credentials.from_service_account_info(
 )
 client = storage.Client(credentials=credentials)
 
-# interface with Google Cloud Storage using gcsfs
-fs = gcsfs.GCSFileSystem(project = 'My First Project', token = 'anon')
-with fs.open('anime_recommendation_dataset_practice/anime_df.pickle') as f:
-    anime_df = pandas.read_pickle(f)
+@st.cache
+def load_cloud(fs, bucket_path, file_name):
+    with fs.open(bucket_path + file_name) as f:
+        content = pandas.read_pickle(f)
+    return content
 
-with fs.open('anime_recommendation_dataset_practice/anime_name_search.pickle') as f:
-    anime_name_search = pandas.read_pickle(f)
-    
-with fs.open('anime_recommendation_dataset_practice/anime_trained_model.sav', 'rb') as f:
-    anime_model = pickle.load(f)
+@st.cache
+def load_cloud_b(fs, bucket_path, file_name):
+    with fs.open(bucket_path + file_name, 'rb') as f:
+        content = pickle.load(f)
+    return content
+
+bucket_path = 'anime_recommendation_dataset_practice/'
+project_name = 'My First Project'
+
+# interface with Google Cloud Storage using gcsfs
+fs = gcsfs.GCSFileSystem(project = project_name, token = 'anon')
+anime_df = load_cloud(fs, bucket_path, 'anime_df.pickle')
+anime_name_search = load_cloud(fs, bucket_path, 'anime_name_search.pickle')    
+anime_model = load_cloud_b(fs, bucket_path, 'anime_trained_model.sav')
 
