@@ -24,18 +24,9 @@ def load_cloud(fs, bucket_path, file_name):
         content = pandas.read_pickle(f)
     return content
 
-@st.cache
-def load_cloud_b(fs, bucket_path, file_name):
-    with fs.open(bucket_path + file_name, 'rb') as f:
-        content = pickle.load(f)
-    return content
-
 bucket_path = 'anime_recommendation_dataset_practice/'
 project_name = 'My First Project'
 
 # interface with Google Cloud Storage using gcsfs
 fs = gcsfs.GCSFileSystem(project = project_name, token = 'anon')
-anime_df = load_cloud(fs, bucket_path, 'anime_df.pickle')
-anime_name_search = load_cloud(fs, bucket_path, 'anime_name_search.pickle')    
-anime_model = load_cloud_b(fs, bucket_path, 'anime_trained_model.sav')
-
+anime_name_search = load_cloud(fs, bucket_path, 'anime_name_search_2022.pickle')    
