@@ -1,6 +1,4 @@
 pandas
-gcsfs
-scikit-learn
-google-cloud-storage
 numpy
 fuzzywuzzy
+levenshtein
